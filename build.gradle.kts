@@ -4,6 +4,7 @@ val kotlin_version: String by project
 val logback_version: String by project
 
 val config_yaml_version: String = "2.3.11"
+val openpdf_version: String = "2.0.2"
 
 plugins {
     kotlin("jvm") version "1.9.24"
@@ -32,6 +33,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-config-yaml:$config_yaml_version")
+    implementation("com.github.librepdf:openpdf:$openpdf_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
