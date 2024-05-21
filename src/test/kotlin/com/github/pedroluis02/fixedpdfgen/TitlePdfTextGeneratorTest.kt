@@ -1,6 +1,7 @@
 package com.github.pedroluis02.fixedpdfgen
 
 import com.github.pedroluis02.fixedpdfgen.writer.FixedPdfTextGenerator
+import com.github.pedroluis02.fixedpdfgen.writer.UnitMeasure
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -21,7 +22,7 @@ class TitlePdfTextGeneratorTest {
     }
 }
 
-private class TitlePdfGenerator : FixedPdfTextGenerator(21f, 29.7f) {
+private class TitlePdfGenerator : FixedPdfTextGenerator(21f, 29.7f, UnitMeasure.CENTIMETERS) {
 
     override fun onAddElements() {
         addFixedText("Fixed PDF Text", 5f, 2f, 14f)
