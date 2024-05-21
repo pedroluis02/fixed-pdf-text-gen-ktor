@@ -3,7 +3,6 @@ package com.github.pedroluis02.fixedpdfgen.writer
 import com.lowagie.text.Document
 import com.lowagie.text.PageSize
 import com.lowagie.text.Rectangle
-import com.lowagie.text.Utilities
 import com.lowagie.text.pdf.BaseFont
 import com.lowagie.text.pdf.PdfWriter
 import java.io.ByteArrayOutputStream
@@ -14,12 +13,9 @@ import java.io.OutputStream
 
 abstract class FixedPdfTextGenerator(
     private val pageWidth: Float,
-    private val pageHeight: Float
+    private val pageHeight: Float,
+    private val unitMeasure: UnitMeasure = UnitMeasure.DEFAULT
 ) {
-
-    private companion object {
-        const val MILLIMETERS_FACTOR_CM: Float = 10.0f
-    }
 
     private lateinit var writer: PdfWriter
 
@@ -44,7 +40,7 @@ abstract class FixedPdfTextGenerator(
     private fun generate(stream: OutputStream) {
         try {
             PageSize.A4
-            val size = Rectangle(centimetersToPoints(pageWidth), centimetersToPoints(pageHeight))
+            val size = Rectangle(unitMeasure.compute(pageWidth), unitMeasure.compute(pageHeight))
             Document(size).use { document ->
                 writer = PdfWriter.getInstance(document, stream)
                 document.open()
@@ -66,8 +62,8 @@ abstract class FixedPdfTextGenerator(
         val cb = writer.directContent;
 
         val topY = pageHeight - y
-        val pointX = centimetersToPoints(x)
-        val pointY = centimetersToPoints(topY)
+        val pointX = unitMeasure.compute(x)
+        val pointY = unitMeasure.compute(topY)
 
         cb.saveState();
         cb.beginText();
@@ -76,14 +72,6 @@ abstract class FixedPdfTextGenerator(
         cb.showText(text)
         cb.endText()
         cb.restoreState()
-    }
-
-    private fun centimetersToPoints(value: Float): Float {
-        return Utilities.millimetersToPoints(centimetersToMillimeters(value))
-    }
-
-    private fun centimetersToMillimeters(value: Float): Float {
-        return MILLIMETERS_FACTOR_CM * value
     }
 
     protected abstract fun onAddElements()
