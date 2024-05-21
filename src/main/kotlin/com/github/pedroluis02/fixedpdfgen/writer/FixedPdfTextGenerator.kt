@@ -26,7 +26,7 @@ abstract class FixedPdfTextGenerator(
         try {
             generate(FileOutputStream(output))
         } catch (e: IOException) {
-            throw FixedPdfGenerationException(e.message)
+            throw PdfGenerationException(e.message)
         }
     }
 
@@ -54,7 +54,7 @@ abstract class FixedPdfTextGenerator(
                 onAddElements()
             }
         } catch (e: Exception) {
-            throw FixedPdfGenerationException(e.message)
+            throw PdfGenerationException(e.message)
         }
     }
 
