@@ -14,7 +14,7 @@ import java.io.OutputStream
 abstract class FixedPdfTextGenerator(
     private val pageWidth: Float,
     private val pageHeight: Float,
-    private val unitMeasure: UnitMeasure = UnitMeasure.DEFAULT
+    private val unitMeasure: UnitMeasure = UnitMeasure.POINTS
 ) {
 
     private lateinit var writer: PdfWriter

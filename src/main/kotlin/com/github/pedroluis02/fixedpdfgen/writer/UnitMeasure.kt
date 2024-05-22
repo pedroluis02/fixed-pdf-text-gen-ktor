@@ -3,7 +3,7 @@ package com.github.pedroluis02.fixedpdfgen.writer
 import com.lowagie.text.Utilities
 
 enum class UnitMeasure {
-    DEFAULT {
+    POINTS {
         override fun compute(value: Float) = value
     },
     INCHES {
