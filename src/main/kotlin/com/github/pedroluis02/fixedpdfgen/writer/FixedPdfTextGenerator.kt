@@ -1,7 +1,6 @@
 package com.github.pedroluis02.fixedpdfgen.writer
 
 import com.lowagie.text.Document
-import com.lowagie.text.PageSize
 import com.lowagie.text.Rectangle
 import com.lowagie.text.pdf.BaseFont
 import com.lowagie.text.pdf.PdfWriter
@@ -39,17 +38,12 @@ abstract class FixedPdfTextGenerator(
 
     private fun generate(stream: OutputStream) {
         try {
-            PageSize.A4
             val size = Rectangle(unitMeasure.compute(pageWidth), unitMeasure.compute(pageHeight))
             Document(size).use { document ->
                 writer = PdfWriter.getInstance(document, stream)
                 document.open()
 
-                baseFont = BaseFont.createFont(
-                    BaseFont.HELVETICA,
-                    BaseFont.CP1252,
-                    BaseFont.EMBEDDED
-                )
+                baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.EMBEDDED)
 
                 onAddElements()
             }
