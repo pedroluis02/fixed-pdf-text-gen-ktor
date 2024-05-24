@@ -1,7 +1,7 @@
 package com.github.pedroluis02.fixedpdfgen
 
-import com.github.pedroluis02.fixedpdfgen.plugins.configureRouting
 import com.github.pedroluis02.fixedpdfgen.plugins.configureSerialization
+import com.github.pedroluis02.fixedpdfgen.routing.configureRouting
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

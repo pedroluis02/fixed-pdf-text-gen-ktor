@@ -1,4 +1,4 @@
-package com.github.pedroluis02.fixedpdfgen.plugins
+package com.github.pedroluis02.fixedpdfgen.routing
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
