@@ -28,7 +28,7 @@ fun Application.configureRouting() {
 
                 call.respondFile(file)
             } catch (ex: Exception) {
-                call.respondText(ex.message ?: "", status = HttpStatusCode.InternalServerError)
+                call.respond(HttpStatusCode.InternalServerError, ex.message ?: "")
             } finally {
                 if (file.exists()) {
                     file.delete()
