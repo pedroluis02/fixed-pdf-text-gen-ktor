@@ -15,25 +15,29 @@ fun Application.configureRouting() {
 
         get("/pdf-sample") {
             val file = File("sample-pdf-${System.currentTimeMillis()}.pdf")
-            try {
-                val generator = PdfGeneratorSampleService()
-                generator.generateFile(file.path)
+            respondInlineFile(call) { PdfGeneratorSampleService().generateFile(file.path) }
+        }
+    }
+}
 
-                call.response.header(
-                    HttpHeaders.ContentDisposition,
-                    ContentDisposition.Inline.withParameter(
-                        ContentDisposition.Parameters.FileName, file.name
-                    ).toString()
-                )
+private suspend fun respondInlineFile(call: ApplicationCall, generationFun: () -> File) {
+    var file: File? = null
+    try {
+        file = generationFun()
 
-                call.respondFile(file)
-            } catch (ex: Exception) {
-                call.respond(HttpStatusCode.InternalServerError, ex.message ?: "")
-            } finally {
-                if (file.exists()) {
-                    file.delete()
-                }
-            }
+        call.response.header(
+            HttpHeaders.ContentDisposition,
+            ContentDisposition.Inline.withParameter(
+                ContentDisposition.Parameters.FileName, file.name
+            ).toString()
+        )
+
+        call.respondFile(file)
+    } catch (ex: Exception) {
+        call.respond(HttpStatusCode.InternalServerError, ex.message ?: "")
+    } finally {
+        if (file != null && file.exists()) {
+            file.delete()
         }
     }
 }
