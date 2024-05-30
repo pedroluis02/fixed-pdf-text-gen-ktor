@@ -4,10 +4,7 @@ import com.lowagie.text.Document
 import com.lowagie.text.Rectangle
 import com.lowagie.text.pdf.BaseFont
 import com.lowagie.text.pdf.PdfWriter
-import java.io.ByteArrayOutputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
+import java.io.*
 
 
 abstract class FixedPdfTextGenerator(
@@ -21,9 +18,10 @@ abstract class FixedPdfTextGenerator(
     private var baseFont: BaseFont = BaseFont.createFont()
     private var baseFontSize: Float = 8.0f
 
-    fun generateFile(output: String) {
+    fun generateFile(output: String): File {
         try {
             generate(FileOutputStream(output))
+            return File(output)
         } catch (e: IOException) {
             throw PdfGenerationException(e.message)
         }
