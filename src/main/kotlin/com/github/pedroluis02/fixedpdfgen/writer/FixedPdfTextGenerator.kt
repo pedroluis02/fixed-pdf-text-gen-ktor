@@ -13,10 +13,14 @@ abstract class FixedPdfTextGenerator(
     private val unitMeasure: UnitMeasure = UnitMeasure.POINTS
 ) {
 
-    private lateinit var writer: PdfWriter
+    private val defaultBaseFontSize: Float = 8.0f
+    protected var baseFontSize: Float = defaultBaseFontSize
+        set(value) {
+            field = if (value < defaultBaseFontSize) defaultBaseFontSize else value
+        }
 
+    private lateinit var writer: PdfWriter
     private var baseFont: BaseFont = BaseFont.createFont()
-    private var baseFontSize: Float = 8.0f
 
     fun generateFile(output: String): File {
         try {
@@ -50,7 +54,7 @@ abstract class FixedPdfTextGenerator(
         }
     }
 
-    protected fun addFixedText(text: String, x: Float, y: Float, fontSize: Float = baseFontSize) {
+    protected fun addFixedText(text: String, x: Float, y: Float, fontSize: Float? = null) {
         val cb = writer.directContent;
 
         val topY = pageHeight - y
@@ -60,7 +64,7 @@ abstract class FixedPdfTextGenerator(
         cb.saveState();
         cb.beginText();
         cb.moveText(pointX, pointY);
-        cb.setFontAndSize(baseFont, fontSize)
+        cb.setFontAndSize(baseFont, fontSize ?: baseFontSize)
         cb.showText(text)
         cb.endText()
         cb.restoreState()
