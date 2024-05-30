@@ -2,7 +2,7 @@ package com.github.pedroluis02.fixedpdfgen.routing
 
 import com.github.pedroluis02.fixedpdfgen.service.PdfGeneratorSampleService
 import com.github.pedroluis02.fixedpdfgen.service.PdfTemplateGeneratorService
-import com.github.pedroluis02.fixedpdfgen.template.FixedPdfTemplateModel
+import com.github.pedroluis02.fixedpdfgen.template.PdfTemplateModel
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -22,7 +22,7 @@ fun Application.configureRouting() {
         }
 
         post("/pdf-template") {
-            val model = call.receive<FixedPdfTemplateModel>()
+            val model = call.receive<PdfTemplateModel>()
             val file = File("fixed-pdf-${System.currentTimeMillis()}.pdf")
             respondInlineFile(call) { PdfTemplateGeneratorService(model).generateFile(file.path) }
         }
