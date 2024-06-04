@@ -10,21 +10,19 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.io.File
 
-fun Application.configureRouting() {
+fun Application.configurePdfGenerationRouting() {
     routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
+        route("/api/v1/pdf-generation") {
+            post("/sample") {
+                val file = File("sample-pdf-${System.currentTimeMillis()}.pdf")
+                respondInlineFile(call) { PdfGeneratorSampleService().generateFile(file.path) }
+            }
 
-        get("/pdf-sample") {
-            val file = File("sample-pdf-${System.currentTimeMillis()}.pdf")
-            respondInlineFile(call) { PdfGeneratorSampleService().generateFile(file.path) }
-        }
-
-        post("/pdf-template") {
-            val model = call.receive<PdfTemplateModel>()
-            val file = File("fixed-pdf-${System.currentTimeMillis()}.pdf")
-            respondInlineFile(call) { PdfTemplateGeneratorService(model).generateFile(file.path) }
+            post("/template") {
+                val model = call.receive<PdfTemplateModel>()
+                val file = File("fixed-pdf-${System.currentTimeMillis()}.pdf")
+                respondInlineFile(call) { PdfTemplateGeneratorService(model).generateFile(file.path) }
+            }
         }
     }
 }

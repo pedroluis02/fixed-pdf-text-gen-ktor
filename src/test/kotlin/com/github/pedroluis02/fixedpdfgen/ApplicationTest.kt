@@ -1,6 +1,6 @@
 package com.github.pedroluis02.fixedpdfgen
 
-import com.github.pedroluis02.fixedpdfgen.routing.configureRouting
+import com.github.pedroluis02.fixedpdfgen.routing.configurePdfGenerationRouting
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -12,7 +12,7 @@ class ApplicationTest {
     @Test
     fun testRoot() = testApplication {
         application {
-            configureRouting()
+            configurePdfGenerationRouting()
         }
         client.get("/").apply {
             assertEquals(HttpStatusCode.OK, status)
