@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PdfTemplateModel(
+    val unitMeasure: TemplateUnitMeasure,
     val width: Float,
     val height: Float,
     val elements: List<TemplateElement>,
