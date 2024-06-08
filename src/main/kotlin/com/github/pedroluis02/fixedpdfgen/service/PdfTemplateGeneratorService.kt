@@ -6,7 +6,7 @@ import com.github.pedroluis02.fixedpdfgen.writer.FixedPdfTextGenerator
 import com.github.pedroluis02.fixedpdfgen.writer.UnitMeasure
 
 class PdfTemplateGeneratorService(private val model: PdfTemplateModel) :
-    FixedPdfTextGenerator(21f, 29.7f, UnitMeasure.CENTIMETERS) {
+    FixedPdfTextGenerator(model.width, model.height, UnitMeasure.CENTIMETERS) {
 
     override fun onAddElements() {
         if (model.fontSize != null) {
