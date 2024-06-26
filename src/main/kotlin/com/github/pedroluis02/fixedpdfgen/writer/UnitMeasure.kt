@@ -2,7 +2,7 @@ package com.github.pedroluis02.fixedpdfgen.writer
 
 import com.lowagie.text.Utilities
 
-enum class UnitMeasure {
+enum class UnitMeasure : MeasureFunction {
     POINTS {
         override fun compute(value: Float) = value
     },
@@ -15,6 +15,4 @@ enum class UnitMeasure {
     MILLIMETERS {
         override fun compute(value: Float) = Utilities.millimetersToPoints(value)
     };
-
-    abstract fun compute(value: Float): Float
 }

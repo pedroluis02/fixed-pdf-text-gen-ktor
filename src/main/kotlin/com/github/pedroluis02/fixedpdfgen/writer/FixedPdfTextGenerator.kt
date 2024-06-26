@@ -10,7 +10,7 @@ import java.io.*
 abstract class FixedPdfTextGenerator(
     private val pageWidth: Float,
     private val pageHeight: Float,
-    private val unitMeasure: UnitMeasure = UnitMeasure.POINTS
+    private val unitMeasure: MeasureFunction = UnitMeasure.POINTS
 ) {
 
     private val defaultBaseFontSize: Float = 8.0f
