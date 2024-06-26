@@ -10,7 +10,7 @@ enum class TemplateUnitMeasure {
             inch -> UnitMeasure.INCHES
             cm -> UnitMeasure.CENTIMETERS
             mm -> UnitMeasure.MILLIMETERS
-            else -> UnitMeasure.POINTS
+            px -> UnitMeasure.POINTS
         }
     }
 }
