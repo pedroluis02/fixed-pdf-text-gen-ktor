@@ -8,3 +8,6 @@ Base url `/api/v1/pdf-generation`
 
 - PDF Sample: **POST** `/sample`
 - PDF by Template: **POST** `/template`, request body `pdf-template.json`
+
+### Ktor Project Generator
+- https://start.ktor.io/
